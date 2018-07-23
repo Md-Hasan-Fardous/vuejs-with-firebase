@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>First FireBase App</title>
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+</head>
+<body>
+	
+	<div id="root">
+		<div class="container">
+			<p class="txtCenter">
+				<input type="text" placeholder="Username" v-model="newUser.username">
+				<input type="text" placeholder="Email" v-model="newUser.email">
+				<button class="add" @click="addNewUser()">Save</button>
+			</p>
+
+			<br>
+			<br>
+			<br>
+
+			<table>
+				<tr>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr v-for="user in users">
+					<td>
+						<input type="text" v-if="selectedUser.key == user.key" v-model="selectedUser.val.username">
+
+						<p v-else>{{user.val.username}}</p>
+					</td>
+					<td>
+						<input type="text" v-if="selectedUser.key == user.key" v-model="selectedUser.val.email">
+
+						<p v-else>{{user.val.email}}</p>
+					</td>
+					<td>
+						<button class="edit" @click="selectedUser = user" v-if="selectedUser.key != user.key">Edit</button>
+						<button class="edit" @click="updateUser()" v-else>Done</button>
+					</td>
+					<td><button class="delete" @click="deleteUser(user.key)">Delete</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<script src="js/vue.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
